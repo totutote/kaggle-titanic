@@ -1,9 +1,9 @@
 {
   "name": "Kaggle Dev Container",
   "dockerComposeFile": "docker-compose.yml",
-  "service": "app",
+  "service": "kaggle",
   "workspaceFolder": "/kaggle/working",
-  "forwardPorts": [5000],
+  "forwardPorts": [8888],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -12,6 +12,5 @@
         "ms-python.debugpy"
       ]
     }
-  },
-  "remoteUser": "kaggle"
+  }
 }

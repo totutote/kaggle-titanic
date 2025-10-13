@@ -1,12 +1,20 @@
 services:
-  app:
+  kaggle:
     build: .
-    runtime: nvidia
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     volumes:
-      - .:/kaggle/working
+      - ../:/kaggle/working
+      - ~/.kaggle:/root/.config/kaggle:ro
+    ports:
+      - "8888:8888"
     working_dir: /kaggle/working
-    shm_size: '2g'
+    shm_size: '32g'
+    command: ["/bin/bash", "-c", "chmod 600 /root/.config/kaggle/kaggle.json; exec /bin/bash -l"]
+    stdin_open: true
     tty: true
